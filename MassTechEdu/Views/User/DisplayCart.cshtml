@@ -1,0 +1,201 @@
+﻿@model List<Cart>
+@{
+    ViewBag.Title = "Display Cart";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <title>MassTech Edu</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-edu-meeting.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css">
+</head>
+<body>
+
+
+<header class="header-area header-sticky" id="UserDashboard">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="Dashboard" class="logo">
+                        <img src="~/images/masstechedu.png" height="50" width="100" />
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        //Access he claims
+                            <li><a href="Dashboard" class="active">Home</a></li>
+                            <li><a href="ViewCourse">Courses</a></li>
+                            <li><a href="ViewSubCourse">Sub Courses</a></li>
+                            <li><a href="DisplayCart">Cart</a></li>
+                            <li class="has-sub">
+                                @*                                                         <a href="javascript:void(0)">Hello @HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
+                            *@                                                 <a class="nav-link text-dark">Hello @User.Identity.Name</a>
+                                <ul class="sub-menu">
+                                    <li><a asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                            <li><a asp-controller="Auth" asp-action="Register">Register</a></li>
+                        }
+
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="row align-items-center">
+    @* <div class="col-md-2">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
+    class="img-fluid" alt="Generic placeholder image">
+    </div>
+    <div class="col-md-2 d-flex justify-content-center">
+    <div>
+    <p class="small text-muted mb-4 pb-2">Name</p>
+    <p class="lead fw-normal mb-0">iPad Air</p>
+    </div>
+    </div> *@
+
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">SubCourseName</th>
+                <th scope="col">CourseID</th>
+                <th scope="col">Image</th>
+                <th scope="col">Price</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <th scope="row">@a.SubCourseId</th>
+                    <td>@a.SubCourseName</td>
+                    <td>@a.CouurseId</td>
+                    <td><img src=/@a.ImagePath class="img-fluid" style="width:50px ;height:50px" /></td>
+                    <td>@a.Price</td>
+
+                    <td>
+                        <a asp-controller="Cart" asp-action="Deleteitem" asp-route-id="@a.SubCourseId"><input type="button" value="Delete" class="btn btn-sm btn-danger" /></a>
+
+                    </td>
+                </tr>
+            }
+</div>
+
+<br />
+<br />
+<table>
+    <tr>
+        <td>
+            <span class="small text-muted me-2">Total Price:</span>
+            <span class="lead fw-normal">@Model.Sum(a => a.Price).ToString("N2")</span>
+        </td>
+    </tr>
+</table>
+            </div>
+<br />
+<div class="card mb-5">
+    <div class=" justify-content-end">
+        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Proceed</button>
+    </div>
+</div>
+<div class="col-lg-6 align-self-center">
+    <div class="video">
+        <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><img src="assets/images/meetings-page-bg.png" alt=""></a>
+    </div>
+</div>
+
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+    <script src="assets/js/tabs.js"></script>
+    <script src="assets/js/video.js"></script>
+    <script src="assets/js/slick-slider.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script>
+        //according to loftblog tut
+        $('.nav li:first').addClass('active');
+
+        var showSection = function showSection(section, isAnimate) {
+            var
+                direction = section.replace(/#/, ''),
+                reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+                reqSectionPos = reqSection.offset().top - 0;
+
+            if (isAnimate) {
+                $('body, html').animate({
+                    scrollTop: reqSectionPos
+                },
+                    800);
+            } else {
+                $('body, html').scrollTop(reqSectionPos);
+            }
+
+        };
+
+        var checkSection = function checkSection() {
+            $('.section').each(function () {
+                var
+                    $this = $(this),
+                    topEdge = $this.offset().top - 80,
+                    bottomEdge = topEdge + $this.height(),
+                    wScroll = $(window).scrollTop();
+                if (topEdge < wScroll && bottomEdge > wScroll) {
+                    var
+                        currentId = $this.data('section'),
+                        reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+                    reqLink.closest('li').addClass('active').
+                        siblings().removeClass('active');
+                }
+            });
+        };
+
+        $('.main-menu, .responsive-menu, .scroll-to-section').on('click', 'a', function (e) {
+            e.preventDefault();
+            showSection($(this).attr('href'), true);
+        });
+
+        $(window).scroll(function () {
+            checkSection();
+        });
+    </script>
+    <script type="text/javascript">
+        document.getElementById("AdminDashboard").style.display = "none";
+    </script>
+
+</body>
+
+

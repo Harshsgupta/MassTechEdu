@@ -1,0 +1,181 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ElearningDB.styles.css" asp-append-version="true" />
+    <link href="/css/flex-slider.css" rel="stylesheet" />
+    <link href="/css/fontawesome.css" rel="stylesheet" />
+    <link href="/css/lightbox.css" rel="stylesheet" />
+    <link href="/css/templatemo-edu-meeting.css" rel="stylesheet" />
+    <link href="/css/owl.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header-area header-sticky" id="header">
+        <div class="container-fluid">
+
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("Urole") == "Admin")
+                    {
+                        <!-- Sidebar Start -->
+                        <aside class="left-sidebar" id="AdminDashboard">
+                            <!-- Sidebar scroll-->
+                            <div>
+                                <div class="brand-logo d-flex align-items-center justify-content-between">
+                                    <a href="Dashboard" class="text-nowrap logo-img">
+                                        <img src="~/images/masstechedu.png" height="50" width="100" alt="" />
+                                    </a>
+                                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                                        <i class="ti ti-x fs-8"></i>
+                                    </div>
+                                </div>
+                                <!-- Sidebar navigation-->
+                                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                                    <ul id="sidebarnav">
+                                        <li class="nav-small-cap">
+                                            <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+                                            <span class="hide-menu">Home</span>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="Dashboard" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <br />
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="AddCourse" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Add Course</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="AddSubCourse" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Add SubCourse</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="UploadVideo" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:bookmark-square-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Upload Video</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="VideosList" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:text-field-focus-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Video List</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" href="UsersList" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:file-text-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">User List</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a class="sidebar-link" asp-area="" asp-controller="Auth" asp-action="Logout" aria-expanded="false">
+                                                <span>
+                                                    <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                                                </span>
+                                                <span class="hide-menu">Logout</span>
+                                            </a>
+                                        </li>
+                                </nav>
+                                <!-- End Sidebar navigation -->
+                            </div>
+                            <!-- End Sidebar scroll-->
+                        </aside>
+                        <!--  Sidebar End -->
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("Urole") == "User")
+                    {          
+                        <header class="header-area header-sticky" id="UserDashboard">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <nav class="main-nav">
+                                            <!-- ***** Logo Start ***** -->
+                                            <a href="Dashboard" class="logo">
+                                                <img src="~/images/masstechedu.png" height="50" width="100" />
+                                            </a>
+                                            <!-- ***** Logo End ***** -->
+                                            <!-- ***** Menu Start ***** -->
+                                            <ul class="nav">
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                            //Access he claims
+                                                <li><a href="Dashboard" class="active">Home</a></li>
+                                                <li><a href="ViewCourse">Courses</a></li>
+                                                <li><a href="ViewSubCourse">Sub Courses</a></li>
+                                                <li><a href="DisplayCart">Cart</a></li>
+                                                <li class="has-sub">
+@*                                                         <a href="javascript:void(0)">Hello @HttpContextAccessor.HttpContext.Session.GetString("Username")</a>
+ *@                                                 <a class="nav-link text-dark">Hello @User.Identity.Name</a>
+                                                    <ul class="sub-menu">
+                                                            <li><a asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a></li>
+                                                    </ul>
+                                                </li>
+                                                }
+                                                else
+                                                {                                                  
+                                                <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                                                <li><a asp-controller="Auth" asp-action="Register">Register</a></li>
+                                                }
+
+                                            </ul>
+                                            <a class='menu-trigger'>
+                                                <span>Menu</span>
+                                            </a>
+                                            <!-- ***** Menu End ***** -->
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid p-lg-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+@*     <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - MassTechEdu - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+ *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

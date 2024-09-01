@@ -1,0 +1,143 @@
+﻿@model IEnumerable<MassTechEdu.Models.Quiz>
+
+@{
+    ViewData["Title"] = "Quizzes";
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users List</title>
+    <link rel="shortcut icon" type="image/png" href="../images/masstechedu.png" />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+</head>
+<body>
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar" id="AdminDashboard">
+        <!-- Sidebar scroll-->
+        <div>
+            <div class="brand-logo d-flex align-items-center justify-content-between">
+                <a href="Dashboard" class="text-nowrap logo-img">
+                    <img src="~/images/masstechedu.png" height="50" width="100" alt="" />
+                </a>
+                <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                    <i class="ti ti-x fs-8"></i>
+                </div>
+            </div>
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+                        <span class="hide-menu">Home</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="Dashboard" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <br />
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="AddCourse" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Add Course</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="AddSubCourse" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Add SubCourse</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="UploadVideo" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:bookmark-square-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Upload Video</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="VideosList" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:text-field-focus-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Video List</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="UsersList" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:file-text-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">User List</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-area="" asp-controller="Auth" asp-action="Logout" aria-expanded="false">
+                            <span>
+                                <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+
+    <div class="container">
+        <p>
+    <a asp-action="CreateQuiz" class="btn btn-primary">Create New Quiz</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.QuizName)</th>
+            <th>@Html.DisplayNameFor(model => model.Course)</th>
+            <th>@Html.DisplayNameFor(model => model.Subcourse)</th>
+            <th>@Html.DisplayNameFor(model => model.QuizDuration)</th>
+            <th>@Html.DisplayNameFor(model => model.DateCreated)</th>
+            <th>@Html.DisplayNameFor(model => model.DateModified)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.QuizName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Course.CourseName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Subcourse.SubCourseName)</td>
+                <td>@Html.DisplayFor(modelItem => item.QuizDuration) minutes</td>
+                <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateModified)</td>
+                <td>
+                    <a asp-action="EditQuiz" asp-route-id="@item.Quizid" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="DeleteQuiz" asp-route-id="@item.Quizid" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    </div>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script type="text/javascript">
+        document.getElementById("UserDashboard").style.display = "none";
+    </script>
+
+</body>
+</html>
